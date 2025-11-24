@@ -44,9 +44,9 @@ FLIP_LR = 0.5                     # Flip left-right augmentation probability
 MOSAIC = 1.0                      # Mosaic augmentation probability
 
 # Dataset and output
-DATA_CONFIG = 'configs/cityscapes_filtered.yaml'  # Path to dataset YAML file
+DATA_CONFIG = 'configs/cityscapes_filtered_1024.yaml'  # Path to dataset YAML file
 PROJECT_DIR = 'runs/train'        # Project directory for outputs
-EXPERIMENT_NAME = 'cityscapes_yolo11s_filtered'  # Experiment name
+EXPERIMENT_NAME = 'cityscapes_yolo11s_1024'  # Experiment name
 
 # Other options
 DEVICE = 'cpu'                    # Device: 'cpu' for CPU (stable), 'mps' for Apple Silicon (experimental), '0' for GPU
