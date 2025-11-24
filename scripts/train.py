@@ -23,7 +23,7 @@ RESUME = None                     # Resume from checkpoint path (None for new tr
 # Training parameters
 EPOCHS = 100                      # Number of training epochs
 BATCH_SIZE = 8                    # Batch size for training
-IMAGE_SIZE = 640                  # Input image size (pixels)
+IMAGE_SIZE = 1024                 # Input image size (pixels) - higher resolution for better small object detection
 WORKERS = 8                       # Number of data loading workers
 
 # Optimizer parameters
