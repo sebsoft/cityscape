@@ -7,19 +7,18 @@ path: /Users/sebsoft/projects/cityscape/data_filtered_1024  # Root directory
 train: train/images  # Train images directory (relative to 'path')
 val: valid/images    # Validation images directory (relative to 'path')
 
-# Number of classes (filtered)
-nc: 10
+# Number of classes (filtered - dynamic removed)
+nc: 9
 
-# Class names (filtered for vehicles and people)
-# Original class IDs: [0,2,3,4,5,8,9,11,14,15]
+# Class names (filtered for vehicles and people - dynamic removed)
+# Original class IDs: [0,2,3,4,8,9,11,14,15]
 names:
   0: bicycle       # original class 0
   1: bus           # original class 2
   2: car           # original class 3
   3: caravan       # original class 4
-  4: dynamic       # original class 5
-  5: motorcycle    # original class 8
-  6: person        # original class 9
-  7: rider         # original class 11
-  8: trailer       # original class 14
-  9: truck         # original class 15
+  4: motorcycle    # original class 8
+  5: person        # original class 9
+  6: rider         # original class 11
+  7: trailer       # original class 14
+  8: truck         # original class 15

@@ -5,40 +5,49 @@ This script removes unwanted classes from the dataset and remaps class IDs.
 Creates a new filtered dataset with only vehicles and people.
 
 Usage:
-    python scripts/filter_dataset.py
+    python scripts/filter_dataset.py --input INPUT_DIR --output OUTPUT_DIR
 """
 
+import argparse
 import shutil
 from pathlib import Path
 from tqdm import tqdm
 
-# Original dataset paths
-DATA_DIR = Path('/Users/sebsoft/projects/cityscape/data')
-TRAIN_LABELS = DATA_DIR / 'train' / 'labels'
-VAL_LABELS = DATA_DIR / 'valid' / 'labels'
-TRAIN_IMAGES = DATA_DIR / 'train' / 'images'
-VAL_IMAGES = DATA_DIR / 'valid' / 'images'
 
-# New filtered dataset paths
-FILTERED_DIR = DATA_DIR.parent / 'data_filtered'
-FILTERED_TRAIN_LABELS = FILTERED_DIR / 'train' / 'labels'
-FILTERED_VAL_LABELS = FILTERED_DIR / 'valid' / 'labels'
-FILTERED_TRAIN_IMAGES = FILTERED_DIR / 'train' / 'images'
-FILTERED_VAL_IMAGES = FILTERED_DIR / 'valid' / 'images'
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description='Filter Cityscapes dataset to vehicles and people only')
+    parser.add_argument('--input', type=str, required=True, help='Input dataset directory')
+    parser.add_argument('--output', type=str, required=True, help='Output filtered dataset directory')
+    return parser.parse_args()
 
-# Classes to keep (vehicles and people)
-# Original class IDs from the dataset
+
+# Original dataset paths (will be set from command line)
+DATA_DIR = None
+TRAIN_LABELS = None
+VAL_LABELS = None
+TRAIN_IMAGES = None
+VAL_IMAGES = None
+
+# New filtered dataset paths (will be set from command line)
+FILTERED_DIR = None
+FILTERED_TRAIN_LABELS = None
+FILTERED_VAL_LABELS = None
+FILTERED_TRAIN_IMAGES = None
+FILTERED_VAL_IMAGES = None
+
+# Classes to keep (vehicles and people) - DYNAMIC REMOVED
+# Original class IDs from the dataset (based on data.yaml)
 CLASSES_TO_KEEP = {
     0: 0,   # bicycle -> 0
     2: 1,   # bus -> 1
     3: 2,   # car -> 2
     4: 3,   # caravan -> 3
-    5: 4,   # dynamic -> 4
-    8: 5,   # motorcycle -> 5
-    9: 6,   # person -> 6
-    11: 7,  # rider -> 7
-    14: 8,  # trailer -> 8
-    15: 9,  # truck -> 9
+    8: 4,   # motorcycle -> 4
+    9: 5,   # person -> 5
+    11: 6,  # rider -> 6
+    14: 7,  # trailer -> 7
+    15: 8,  # truck -> 8
 }
 
 # Class names for reference
@@ -47,12 +56,11 @@ CLASS_NAMES = [
     'bus',        # 1
     'car',        # 2
     'caravan',    # 3
-    'dynamic',    # 4
-    'motorcycle', # 5
-    'person',     # 6
-    'rider',      # 7
-    'trailer',    # 8
-    'truck',      # 9
+    'motorcycle', # 4
+    'person',     # 5
+    'rider',      # 6
+    'trailer',    # 7
+    'truck',      # 8
 ]
 
 
@@ -89,8 +97,25 @@ def filter_label_file(input_path, output_path):
     return False
 
 
-def filter_dataset():
+def filter_dataset(input_dir, output_dir):
     """Filter the entire dataset."""
+    
+    # Set global paths
+    global DATA_DIR, TRAIN_LABELS, VAL_LABELS, TRAIN_IMAGES, VAL_IMAGES
+    global FILTERED_DIR, FILTERED_TRAIN_LABELS, FILTERED_VAL_LABELS
+    global FILTERED_TRAIN_IMAGES, FILTERED_VAL_IMAGES
+    
+    DATA_DIR = Path(input_dir)
+    TRAIN_LABELS = DATA_DIR / 'train' / 'labels'
+    VAL_LABELS = DATA_DIR / 'valid' / 'labels'
+    TRAIN_IMAGES = DATA_DIR / 'train' / 'images'
+    VAL_IMAGES = DATA_DIR / 'valid' / 'images'
+    
+    FILTERED_DIR = Path(output_dir)
+    FILTERED_TRAIN_LABELS = FILTERED_DIR / 'train' / 'labels'
+    FILTERED_VAL_LABELS = FILTERED_DIR / 'valid' / 'labels'
+    FILTERED_TRAIN_IMAGES = FILTERED_DIR / 'train' / 'images'
+    FILTERED_VAL_IMAGES = FILTERED_DIR / 'valid' / 'images'
     
     print("\n" + "="*80)
     print("FILTERING CITYSCAPES DATASET")
@@ -160,4 +185,5 @@ def filter_dataset():
 
 
 if __name__ == '__main__':
-    filter_dataset()
+    args = parse_args()
+    filter_dataset(args.input, args.output)

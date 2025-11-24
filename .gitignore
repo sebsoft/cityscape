@@ -17,8 +17,10 @@ ENV/
 .venv
 
 # Datasets (large files)
+Cityscapes.v1i.yolov11/
 data/
 data_filtered/
+data_filtered_1024/
 *.zip
 
 # Training outputs (keeping best model and results)

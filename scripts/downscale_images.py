@@ -44,7 +44,7 @@ def downscale_image(input_path: Path, output_path: Path, target_size: int = 1024
     
     # Save image
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    img_resized.save(output_path, quality=95, optimize=True)
+    img_resized.save(output_path, quality=85, optimize=True)
 
 
 def copy_labels(input_dir: Path, output_dir: Path):
