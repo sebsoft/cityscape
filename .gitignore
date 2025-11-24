@@ -21,12 +21,17 @@ data/
 data_filtered/
 *.zip
 
-# Training outputs
-runs/
-*.pt
-*.onnx
-*.engine
+# Training outputs (keeping best model and results)
+runs/**/train_batch*.jpg
+runs/**/val_batch*.jpg
 wandb/
+
+# Keep important training artifacts
+!runs/**/weights/best.pt
+!runs/**/results.csv
+!runs/**/results.png
+!runs/**/confusion_matrix*.png
+!runs/**/args.yaml
 
 # IDE
 .vscode/
